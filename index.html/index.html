@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accounting & Billing Management System</title>
+    <!-- Font Awesome (keep in head) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Link to external CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Admin Sidebar -->
+        <div class="sidebar" id="sidebar" style="display: none;">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-calculator"></i> Admin Panel</h2>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="#" class="active" data-target="dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="#" data-target="daily-entry"><i class="fas fa-calendar-day"></i> Daily Entry</a></li>
+                <li><a href="#" data-target="employee-attendance"><i class="fas fa-users"></i> Employees</a></li>
+                <li><a href="#" data-target="machine-page"><i class="fas fa-cogs"></i> Machines</a></li>
+                <li><a href="#" data-target="customer-details"><i class="fas fa-user-tie"></i> Customers</a></li>
+                <li><a href="#" data-target="profit-loss"><i class="fas fa-chart-line"></i> Profit & Loss</a></li>
+                <li><a href="#" data-target="monthly-summary"><i class="fas fa-chart-bar"></i> Monthly Summary</a></li>
+                <li><a href="#" data-target="settings"><i class="fas fa-cog"></i> Settings</a></li>
+            </ul>
+            <div class="sidebar-footer">
+                <button id="sidebar-logout-btn" class="btn btn-danger" style="width: 100%"><i class="fas fa-sign-out-alt"></i> Logout</button>
+            </div>
+        </div>
+
+        <!-- Employee Sidebar -->
+        <div class="employee-sidebar" id="employee-sidebar" style="display: none;">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-user"></i> Employee Portal</h2>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="#" class="active" data-target="employee-work-details"><i class="fas fa-briefcase"></i> My Work Details</a></li>
+            </ul>
+            <div class="sidebar-footer">
+                <button id="employee-logout-btn" class="btn btn-danger" style="width: 100%"><i class="fas fa-sign-out-alt"></i> Logout</button>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <!-- Login Page with Tabs -->
+            <div id="login-page" class="login-container">
+                <div class="logo">
+                    <i class="fas fa-calculator"></i>
+                </div>
+                <div class="login-tabs">
+                    <button class="login-tab active" id="admin-tab">Admin Login</button>
+                    <button class="login-tab" id="employee-tab">Employee Login</button>
+                </div>
+                
+                <!-- Admin Login Form -->
+                <div id="admin-login-form" class="login-form">
+                    <h2>Accounting & Billing System</h2>
+                    <div id="admin-login-error" class="error-message" style="display: none;"></div>
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" placeholder="Enter your username" value="avinash">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" placeholder="Enter your password" value="avinash@123">
+                    </div>
+                    <button id="admin-login-btn" class="btn">Login as Admin</button>
+                </div>
+                
+                <!-- Employee Login Form -->
+                <div id="employee-login-form" class="login-form" style="display: none;">
+                    <h2>Employee Login</h2>
+                    <div id="employee-login-error" class="error-message" style="display: none;"></div>
+                    <div class="form-group">
+                        <label for="emp-name">Your Name (exactly as in system)</label>
+                        <input type="text" id="emp-name" placeholder="Enter your name">
+                    </div>
+                    <div class="form-group">
+                        <label for="emp-password">Password</label>
+                        <input type="password" id="emp-password" placeholder="Enter your password">
+                    </div>
+                    <button id="employee-login-btn" class="btn">Login as Employee</button>
+                </div>
+            </div>
+
+            <!-- Admin Dashboard -->
+            <div id="dashboard" class="dashboard">
+                <div class="dashboard-header">
+                    <h1><i class="fas fa-calculator"></i> Accounting & Billing Management System</h1>
+                    <div>
+                        <button id="backup-btn" class="btn btn-secondary">Backup Data</button>
+                        <button id="restore-btn" class="btn btn-success">Restore Data</button>
+                        <button id="logout-btn" class="btn btn-danger">Logout</button>
+                    </div>
+                </div>
+                
+                <div class="dashboard-content">
+                    <div class="date-selector">
+                        <label for="date-picker">Select Date: </label>
+                        <input type="date" id="date-picker" value="">
+                    </div>
+                    
+                    <div class="storage-status" id="storage-status">
+                        <p><i class="fas fa-database"></i> Data is being saved locally. Last saved: Just now</p>
+                    </div>
+                    
+                    <div class="modules-grid">
+                        <div class="module-box" data-module="daily-entry">
+                            <div class="module-icon"><i class="fas fa-calendar-day"></i></div>
+                            <h3>Daily Entry</h3>
+                            <p>Enter all daily data in one place</p>
+                        </div>
+                        <div class="module-box" data-module="employee-attendance">
+                            <div class="module-icon"><i class="fas fa-users"></i></div>
+                            <h3>Employee Attendance</h3>
+                            <p>Manage employee attendance and work details</p>
+                        </div>
+                        <div class="module-box" data-module="machine-page">
+                            <div class="module-icon"><i class="fas fa-cogs"></i></div>
+                            <h3>Machine Page</h3>
+                            <p>Track machine usage and costs</p>
+                        </div>
+                        <div class="module-box" data-module="customer-details">
+                            <div class="module-icon"><i class="fas fa-user-tie"></i></div>
+                            <h3>Customer Details</h3>
+                            <p>Manage customer transactions</p>
+                        </div>
+                        <div class="module-box" data-module="profit-loss">
+                            <div class="module-icon"><i class="fas fa-chart-line"></i></div>
+                            <h3>Profit & Loss Account</h3>
+                            <p>View financial performance</p>
+                        </div>
+                        <div class="module-box" data-module="monthly-summary">
+                            <div class="module-icon"><i class="fas fa-chart-bar"></i></div>
+                            <h3>Monthly Summary</h3>
+                            <p>View monthly reports</p>
+                        </div>
+                        <div class="module-box" data-module="settings">
+                            <div class="module-icon"><i class="fas fa-cog"></i></div>
+                            <h3>Settings</h3>
+                            <p>Manage employees and machines</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Enhanced Search with Nested Dropdown -->
+                    <div class="form-container" style="margin-top:40px;">
+                        <h3>Search Transactions by Date & Filter</h3>
+                        <div class="search-section">
+                            <input type="date" id="search-from-date" placeholder="From Date">
+                            <input type="date" id="search-to-date" placeholder="To Date">
+                            
+                            <div class="filter-dropdown" id="filterDropdown">
+                                <button class="filter-dropdown-btn" id="filterDropdownBtn">
+                                    <span id="selectedFilterText">Select filter</span>
+                                    <i class="fas fa-chevron-down"></i>
+                                </button>
+                                <div class="filter-dropdown-menu" id="filterMenu">
+                                    <div class="filter-dropdown-item" data-category="employee">
+                                        Employee <i class="fas fa-chevron-right" style="float:right;"></i>
+                                        <div class="filter-submenu" id="employeeSubmenu"></div>
+                                    </div>
+                                    <div class="filter-dropdown-item" data-category="machine">
+                                        Machine <i class="fas fa-chevron-right" style="float:right;"></i>
+                                        <div class="filter-submenu" id="machineSubmenu"></div>
+                                    </div>
+                                    <div class="filter-dropdown-item" data-category="customer">
+                                        Customer <i class="fas fa-chevron-right" style="float:right;"></i>
+                                        <div class="filter-submenu" id="customerSubmenu"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <button class="btn" id="search-btn">Search</button>
+                        </div>
+                        <div class="search-results" id="search-results"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Employee Dashboard -->
+            <div id="employee-dashboard" class="employee-dashboard">
+                <div class="dashboard-header">
+                    <h1><i class="fas fa-user-circle"></i> <span id="employee-welcome-name">Employee</span>'s Portal</h1>
+                    <button id="employee-logout-btn2" class="btn btn-danger">Logout</button>
+                </div>
+                <div class="dashboard-content">
+                    <div class="modules-grid" style="grid-template-columns:1fr;">
+                        <div class="module-box" data-module="employee-work-details">
+                            <div class="module-icon"><i class="fas fa-briefcase"></i></div>
+                            <h3>My Work Details</h3>
+                            <p>View your attendance, wages, and machine usage</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- All Admin Modules -->
+            <!-- Daily Entry Module -->
+            <div id="daily-entry" class="module-page">
+                <div class="module-header">
+                    <h2><i class="fas fa-calendar-day"></i> Daily Entry</h2>
+                    <button class="btn back-btn" data-back="dashboard">Back to Dashboard</button>
+                </div>
+                <div class="date-selector">
+                    <label for="daily-entry-date">Select Date: </label>
+                    <input type="date" id="daily-entry-date" value="">
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>S.No</th><th>Employee Name</th><th>Attendance</th><th>Machine</th>
+                            <th>Machine Workhour</th><th>Machine Expenses (₹)</th><th>Emp Wage (₹)</th><th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody id="daily-entry-table-body"></tbody>
+                </table>
+                <div class="action-buttons">
+                    <button id="save-daily-entry-btn" class="btn btn-success">Save All Changes</button>
+                    <button id="reset-daily-entry-btn" class="btn btn-danger">Reset Form</button>
+                </div>
+                <p><small>Note: If attendance is unchecked, the wage will NOT be counted in Profit/Loss or Monthly Summary.</small></p>
+            </div>
+
+            <!-- Employee Attendance Module -->
+            <div id="employee-attendance" class="module-page">
+                <div class="module-header">
+                    <h2><i class="fas fa-users"></i> Employee Attendance</h2>
+                    <button class="btn back-btn" data-back="dashboard">Back to Dashboard</button>
+                </div>
+                <div class="date-selector">
+                    <label for="employee-date">Select Date: </label>
+                    <input type="date" id="employee-date" value="">
+                </div>
+                <table class="data-table">
+                    <thead><tr><th>S.No</th><th>Employee Name</th><th>Attendance</th><th>Machine No</th><th>Wage (₹)</th></tr></thead>
+                    <tbody id="employee-table-body"></tbody>
+                </table>
+            </div>
+
+            <!-- Machine Page Module -->
+            <div id="machine-page" class="module-page">
+                <div class="module-header">
+                    <h2><i class="fas fa-cogs"></i> Machine Page</h2>
+                    <button class="btn back-btn" data-back="dashboard">Back to Dashboard</button>
+                </div>
+                <div class="date-selector">
+                    <label for="machine-date">Select Date: </label>
+                    <input type="date" id="machine-date" value="">
+                </div>
+                <table class="data-table">
+                    <thead><tr><th>S.No</th><th>Machine No</th><th>User (Employee)</th><th>Workhour</th><th>Expenses (₹)</th></tr></thead>
+                    <tbody id="machine-table-body"></tbody>
+                </table>
+            </div>
+
+            <!-- Customer Details Module -->
+            <div id="customer-details" class="module-page">
+                <div class="module-header">
+                    <h2><i class="fas fa-user-tie"></i> Customer Details</h2>
+                    <button class="btn back-btn" data-back="dashboard">Back to Dashboard</button>
+                </div>
+                <div class="date-selector">
+                    <label for="customer-date">Select Date: </label>
+                    <input type="date" id="customer-date" value="">
+                </div>
+                <table class="data-table">
+                    <thead><tr><th>S.No</th><th>Date</th><th>Customer Name</th><th>Phone No</th><th>Work in Day</th><th>Payment Method</th><th>Amount</th><th>Discount</th><th>Total Amount</th><th>Actions</th></tr></thead>
+                    <tbody id="customer-table-body"></tbody>
+                </table>
+                <div class="form-container">
+                    <h3>Add New Customer Entry</h3>
+                    <div class="form-row">
+                        <input type="text" id="new-customer-name" placeholder="Customer Name">
+                        <input type="text" id="new-customer-phone" placeholder="Phone No">
+                        <input type="number" id="new-customer-work-day" placeholder="Work in Day">
+                    </div>
+                    <div class="form-row">
+                        <select id="new-customer-payment-method"><option value="">Select</option><option value="Online">Online</option><option value="Offline">Offline</option></select>
+                        <input type="number" id="new-customer-amount" placeholder="Amount" oninput="calculateCustomerTotal()">
+                        <input type="number" id="new-customer-discount" placeholder="Discount" oninput="calculateCustomerTotal()">
+                    </div>
+                    <div class="form-row">
+                        <input type="number" id="new-customer-total-amount" placeholder="Total Amount" readonly>
+                    </div>
+                    <div class="form-row">
+                        <button id="add-customer-btn" class="btn">Add Customer</button>
+                    </div>
+                </div>
+                <div class="action-buttons">
+                    <button id="save-customer-btn" class="btn btn-success">Save All Changes</button>
+                    <button id="reset-customer-btn" class="btn btn-danger">Reset Form</button>
+                </div>
+            </div>
+
+            <!-- Profit & Loss Module -->
+            <div id="profit-loss" class="module-page">
+                <div class="module-header">
+                    <h2><i class="fas fa-chart-line"></i> Profit & Loss Account</h2>
+                    <button class="btn back-btn" data-back="dashboard">Back to Dashboard</button>
+                </div>
+                <div class="date-selector">
+                    <label for="pl-date">Select Month: </label>
+                    <input type="month" id="pl-date" value="">
+                </div>
+                <div class="pl-section"><h3>Income</h3><div class="pl-item"><span>Customer Sales</span><span id="customer-sales-total">₹0.00</span></div><div class="pl-total"><span>Total Income</span><span id="total-income">₹0.00</span></div></div>
+                <div class="pl-section"><h3>Expenses</h3><div class="pl-item"><span>Employee Wages</span><span id="employee-wages-total">₹0.00</span></div><div class="pl-total"><span>Total Expenses</span><span id="total-expenses">₹0.00</span></div></div>
+                <div class="pl-section"><h3>Profit/Loss</h3><div class="pl-total" id="profit-loss-total"><span>Net Profit/Loss</span><span>₹0.00</span></div></div>
+                <div class="action-buttons"><button id="calculate-pl-btn" class="btn btn-success">Calculate</button><button id="print-pl-btn" class="btn btn-secondary">Print Report</button></div>
+            </div>
+
+            <!-- Monthly Summary Module -->
+            <div id="monthly-summary" class="module-page">
+                <div class="module-header"><h2><i class="fas fa-chart-bar"></i> Monthly Summary</h2><button class="btn back-btn" data-back="dashboard">Back to Dashboard</button></div>
+                <div class="date-selector"><label for="summary-month">Select Month: </label><input type="month" id="summary-month" value=""></div>
+                <table class="summary-table"><thead><tr><th>Category</th><th>Total Amount</th></tr></thead><tbody><tr><td>Employee Wages</td><td id="summary-employee">₹0.00</td></tr><tr><td>Customer Sales</td><td id="summary-customer">₹0.00</td></tr><tr><td><strong>Total Expenses</strong></td><td id="summary-total-expenses"><strong>₹0.00</strong></td></tr><tr><td><strong>Net Profit/Loss</strong></td><td id="summary-profit"><strong>₹0.00</strong></td></tr></tbody></table>
+                <div class="action-buttons"><button id="calculate-summary-btn" class="btn btn-success">Calculate Summary</button><button id="print-summary-btn" class="btn btn-secondary">Print Summary</button></div>
+            </div>
+
+            <!-- Settings Module (with password field) -->
+            <div id="settings" class="module-page">
+                <div class="module-header"><h2><i class="fas fa-cog"></i> Settings</h2><button class="btn back-btn" data-back="dashboard">Back to Dashboard</button></div>
+                <div class="settings-content">
+                    <div class="form-container">
+                        <h3>Manage Employees</h3>
+                        <div class="form-row">
+                            <input type="text" id="new-emp-name" placeholder="Employee Name">
+                            <input type="number" id="new-emp-wage" placeholder="Default Wage">
+                            <input type="text" id="new-emp-password" placeholder="Password">
+                            <label><input type="checkbox" id="new-emp-enabled" checked> Enabled</label>
+                        </div>
+                        <div class="form-row">
+                            <button id="add-emp-btn" class="btn">Add Employee</button>
+                        </div>
+                        <table class="data-table">
+                            <thead><tr><th>S.No</th><th>Name</th><th>Default Wage</th><th>Password</th><th>Enabled</th><th>Actions</th></tr></thead>
+                            <tbody id="settings-employees-tbody"></tbody>
+                        </table>
+                    </div>
+                    <div class="form-container"><h3>Manage Machines</h3><div class="form-row"><input type="text" id="new-machine-no" placeholder="Machine Number"><input type="text" id="new-machine-desc" placeholder="Description"><label><input type="checkbox" id="new-machine-enabled" checked> Enabled</label></div><div class="form-row"><button id="add-machine-btn" class="btn">Add Machine</button></div><table class="data-table"><thead><tr><th>S.No</th><th>Machine No</th><th>Description</th><th>Enabled</th><th>Actions</th></tr></thead><tbody id="settings-machines-tbody"></tbody></table></div>
+                </div>
+            </div>
+
+            <!-- Employee Module: My Work Details -->
+            <div id="employee-work-details" class="module-page">
+                <div class="module-header">
+                    <h2><i class="fas fa-briefcase"></i> My Work Details</h2>
+                    <button class="btn back-btn" data-back="employee-dashboard">Back to Dashboard</button>
+                </div>
+                <div class="employee-welcome" id="employee-work-welcome"></div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Attendance</th>
+                            <th>Machine</th>
+                            <th>Work Hours</th>
+                            <th>Machine Expenses (₹)</th>
+                            <th>Wage (₹)</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody id="employee-work-tbody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Link to external JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
